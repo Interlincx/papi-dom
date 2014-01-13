@@ -1,0 +1,24 @@
+{
+  "name": "papi-dom",
+  "version": "0.0.0",
+  "description": "module to handle dom usage related to papi",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.lincx.me:modules/papi-dom.git"
+  },
+  "keywords": [
+    "dom",
+    "papi"
+  ],
+  "author": "Tyler Bushnell",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "c03f2616506c8dde322ea3e43f207c157b1861c1",
+  "devDependencies": {
+    "coffee-script": "~1.6.3"
+  }
+}

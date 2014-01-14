@@ -1,8 +1,6 @@
 
 module.exports = (schema, values, class_name, number_of_items=10, order=[], exclude=[]) ->
   $main = $('<div/>').addClass class_name+'_form'
-  if typeof schema is 'string'
-    schema = this.schemas.tables[schema].fields
 
   tmp = []
   if order.length > 0

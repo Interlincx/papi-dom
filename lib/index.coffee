@@ -1,30 +1,18 @@
 
-rainbow = require 'rainbow-load'
+
+
+rainbow = require "rainbow-load"
 
 
 module.exports = PapiDom = (opts={}) ->
   return this
 
 
-PapiDom::loadWrap = (args, cb) ->
-  rainbow.config
-    barThickness: 5
-    barColors:
-      0: "rgba(0,  0, 0, .7)"
-    shadowColor  : 'rgba(0, 0, 0, 0)'
-
-  rainbow.show()
-
-  @[args['function']](args.args), (err, result) ->
-    rainbow.hide()
-    cb(err, result)
-
-
-PapiDom::adpagePieceSelect = (callback, params, e) ->
+PapiDom::adpagePieceParams = (params) ->
   if typeof params.selected_id == 'undefined'
     params.selected_id = ''
-  pass = {}
 
+  console.log 'really?'
   if params.type is 'account'
     what = 'accounts'
     item_label = 'company_name'
@@ -52,18 +40,14 @@ PapiDom::adpagePieceSelect = (callback, params, e) ->
     title = 'Pick an Ad'
 
   options =
+    what: what
     item_label: item_label
     item_id_handle: item_id_handle
-    selected_id: params.selected_id
     title: title
-    original_event: e
+    selected_id: params.selected_id
+    pass: {}
 
-  _this = @
-  @listModal.createModal options, (err) ->
-    _this.get what, pass, (err, results) ->
-      _this.listModal.populateModal(results, callback, params, e)
-
-
+  return options
 
 
 PapiDom::formification = require './formify.coffee'
@@ -73,4 +57,49 @@ PapiDom::formify = (attrs, input, value, class_name) ->
 PapiDom::printForm = require './print_form.coffee'
 
 PapiDom::listModal = require './modal.coffee'
+
+PapiDom::loadStart = ->
+  rainbow.config
+    barThickness: 5
+    barColors:
+      0: "rgba(0,  0, 0, .7)"
+    shadowColor  : 'rgba(0, 0, 0, 0)'
+  rainbow.show()
+
+PapiDom::loadEnd = ->
+  rainbow.hide()
+
+
+###
+    pass =
+      space: pc
+      func: 'get'
+      args: [
+        'account'
+        {account_id:@accountId}
+        ]
+
+    pd.loadWrap pass, (err, results) ->
+        _this.account = results
+        _this.render()
+
+
+PapiDom::loadWrap = (wrap, cb) ->
+  rainbow.config
+    barThickness: 5
+    barColors:
+      0: "rgba(0,  0, 0, .7)"
+    shadowColor  : 'rgba(0, 0, 0, 0)'
+
+  rainbow.show()
+
+  thiscb = (err, result) ->
+    rainbow.hide()
+    cb(err, result)
+
+  wrap.args.push thiscb
+
+  console.log "ARGS", wrap
+  wrap.space[wrap.func].apply wrap.space, wrap.args
+###
 

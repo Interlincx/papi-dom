@@ -4,7 +4,7 @@
   "description": "module to handle dom usage related to papi",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node_modules/.bin/coffee test/endpoints.coffee"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,16 @@
   "readmeFilename": "README.md",
   "gitHead": "c03f2616506c8dde322ea3e43f207c157b1861c1",
   "devDependencies": {
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "browserify": "~2.35.1",
+    "coffeeify": "~0.5.2"
+  },
+  "dependencies": {
+    "papi-client": "git+ssh://git@git.lincx.me:modules/papi-client.git#v1.0.9",
+    "rainbow-load": "0.0.5"
+  },
+  "browser": "./index.coffee",
+  "browserify": {
+    "transform": "coffeeify"
   }
 }

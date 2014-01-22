@@ -4,7 +4,12 @@ module.exports =
   createModal: (options, callback) ->
     @options = options
 
-    $modal = $("<div/>").attr("id", options.item_label).addClass("modal")
+    if @options.modalClass?
+      @modalClass = options.item_id_handle
+    else
+      @modalClass = options.modalClass
+
+    $modal = $("<div/>").attr("id", options.item_id_handle).addClass('modal').addClass(@modalClass)
     $header = $("<div/>").addClass("modal-header").html '<h3>'+options.title+'</h3>'
     $typea = $("<input/>").addClass("modal_typeahead").attr("type", "search").attr("autocomplete", 'off').keydown ->
       $('.itemRow').hide()
@@ -24,7 +29,7 @@ module.exports =
 
     {item_label,item_id_handle,selected_id,title, original_event} = @options
   
-    $('.modal-body').empty()
+    $('.'+@modalClass+' > .modal-body').empty()
   
     @c_items = []
     @c_titles = []
@@ -61,7 +66,7 @@ module.exports =
     $('.modal_typeahead').typeahead(t_options).keyup ->
       $('.dropdown-menu').hide()
   
-    $('.modal-body').html $table
+    $('.'+@modalClass+' > .modal-body').html $table
   
 
   rowsToTable: (rows, table_settings) ->
@@ -80,7 +85,7 @@ module.exports =
       $a = $("<a>#{row[table_settings.item_label]}</a>")
       $a.click(clickData, @clickItem)
       $td.append("<a>#{row[table_settings.item_label]}</a>").click clickData, (e) ->
-        $('.modal').modal 'hide'
+        $('.'+_this.modalClass).modal 'hide'
         _this.cb(e, e.data, _this.params)
       $holder.append $td
 

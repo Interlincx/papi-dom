@@ -1,5 +1,5 @@
 
-module.exports = (schema, values, class_name, number_of_items=10, order=[], exclude=[]) ->
+module.exports = (schema, values, class_name, number_of_items=10, order=[], field_list=[], field_list_is_whitelist=false) ->
   $main = $('<div/>').addClass class_name+'_form'
 
   tmp = []
@@ -17,7 +17,9 @@ module.exports = (schema, values, class_name, number_of_items=10, order=[], excl
   form_number = 0
   $current = false
   for name in tmp
-    if exclude.indexOf(name) > -1
+    if !field_list_is_whitelist and field_list.indexOf(name) > -1
+      continue
+    else if field_list.indexOf(name) < 0
       continue
     item = schema[name]
     if field_number == number_of_items or $current == false

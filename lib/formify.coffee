@@ -35,7 +35,7 @@ module.exports =
     $label.html input_settings.title
   
     next_to = false
-    if input_settings.client_editable == false
+    if input_settings.client_visible == false
       $input = @buildHidden(input_settings)
       return $input
     else if input_settings.type == 'time' or input_settings.type == 'date' or input_settings.type == 'datetime'
@@ -50,6 +50,9 @@ module.exports =
       $input = @buildSelect(input_settings)
     else
       $input = @buildText(input_settings)
+
+    if input_settings.client_editable is false
+      $input.readOnly = true
   
     if typeof input_settings.tooltip != "undefined"
       $label.popover
@@ -66,6 +69,7 @@ module.exports =
 
     $input.attr('value', @value)
     $final_input = $("<div/>")
+    $final_input.className = 'inputField'
     if next_to
       $label.append $input
       $final_input.append $label
@@ -76,8 +80,8 @@ module.exports =
 
   buildPicker: (input_settings) ->
     $input = @buildText( input_settings )
-    picker_format = 
-      dateFormat: 'yy-mm-dd' 
+    picker_format =
+      dateFormat: 'yy-mm-dd'
       timeFormat: 'hh:mm:ss'
       ampm: false
 

@@ -69,6 +69,42 @@ PapiDom::loadStart = ->
 PapiDom::loadEnd = ->
   rainbow.hide()
 
+PapiDom::showModal = ($modal) ->
+  $modal.modal 'show'
+
+PapiDom::createModal = ->
+  $modal = $("#accountModal")
+  if $modal.length < 1
+    $modal = $("<div/>").attr("id", "accountModal").addClass("modal hide")
+    $modal.append $("<div/>").addClass("modal-header").html "Title"
+    $modalBody = $("<div/>").addClass("modal_body").html "loading ..."
+    $modalBody.css('padding', 20)
+    $modal.append $modalBody
+    $modalBody = $(".modal_body")
+    $modal.append $modalBody
+    $modal.modal 'hide'
+  return $modal
+
+PapiDom::populateModal = (modal, content, title) ->
+  modal.modal "show"
+  modal.find(".modal-header").html title
+  modal.find(".modal_body").html content
+
+  modal.css( 'width', 500 )
+  $modalBody = modal.find(".modal_body")
+  mw = $modalBody[0].scrollWidth
+  mh = $modalBody[0].scrollHeight + 50
+  w = document.documentElement.clientWidth
+  console.log "WIDTH", w
+
+  modal.css( 'width', mw )
+  modal.css( 'height', mh )
+
+  modal.css( 'margin-left', "0px" )
+  modal.css( 'left', (w - mw)/2 )
+
+PapiDom::hideModal = ($modal) ->
+  $modal.modal 'hide'
 
 ###
     pass =

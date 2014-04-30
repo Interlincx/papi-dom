@@ -1,4 +1,10 @@
 
+
+0.0.5 / 2014-04-29
+===================
+  - changed formify to use both client_editable and client_visible schema properties
+  - added whitelist option to print_form
+
 0.0.4 / 2014-02-11
 ===================
   - explicit pathing

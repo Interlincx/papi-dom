@@ -13,14 +13,17 @@ module.exports = (schema, values, class_name, number_of_items=10, order=[], fiel
     for handle, item of schema
       tmp.push handle
 
+
   field_number = 0
   form_number = 0
   $current = false
   for name in tmp
-    if !field_list_is_whitelist and field_list.indexOf(name) > -1
-      continue
-    else if field_list.indexOf(name) < 0
-      continue
+    if field_list.length > 0
+      if !field_list_is_whitelist and field_list.indexOf(name) > -1
+        continue
+      else if field_list_is_whitelist and field_list.indexOf(name) < 0
+        continue
+
     item = schema[name]
     if field_number == number_of_items or $current == false
       form_number++

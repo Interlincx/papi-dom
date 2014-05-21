@@ -14,7 +14,9 @@
     "dom",
     "papi"
   ],
-  "author": "Tyler Bushnell",
+  "author": {
+    "name": "Tyler Bushnell"
+  },
   "license": "BSD",
   "readmeFilename": "README.md",
   "gitHead": "c03f2616506c8dde322ea3e43f207c157b1861c1",
@@ -24,11 +26,18 @@
     "coffeeify": "~0.5.2"
   },
   "dependencies": {
-    "papi-client": "git+ssh://git@git.lincx.me:modules/papi-client.git#v1.0.9",
+    "papi-client": "git+ssh://git@interlincx.githost.io:modules/papi-client.git",
     "rainbow-load": "0.0.5"
   },
   "browser": "./index.coffee",
   "browserify": {
     "transform": "coffeeify"
-  }
+  },
+  "readme": "# PapiDom\n\na module to handle DOM related functions specific to papi's data.\n",
+  "_id": "papi-dom@0.0.6",
+  "dist": {
+    "shasum": "831098e153b7464c7c0593925bd79e4ee8ef6cd3"
+  },
+  "_resolved": "git+ssh://git@git.lincx.me/:modules/papi-dom.git#f4b7976969bcb69e17727c47644895d654d5b91d",
+  "_from": "papi-dom@git+ssh://git@git.lincx.me:modules/papi-dom.git#v0.0.6"
 }

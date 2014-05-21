@@ -26,7 +26,7 @@
     "coffeeify": "~0.5.2"
   },
   "dependencies": {
-    "papi-client": "git+ssh://git@git.lincx.me:modules/papi-client.git#v1.0.9",
+    "papi-client": "git+ssh://git@interlincx.githost.io:modules/papi-client.git",
     "rainbow-load": "0.0.5"
   },
   "browser": "./index.coffee",

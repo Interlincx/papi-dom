@@ -52,7 +52,14 @@ module.exports =
       $input = @buildText(input_settings)
 
     if input_settings.client_editable is false
-      $input.readOnly = true
+      if typeof input_settings.options != 'undefined'
+        @value = input_settings.options[@value]
+      $field = @buildHidden(input_settings)
+      $value = $('<span/>')
+      $value.html @value
+      $input = $("<span/>")
+      $input.append $field
+      $input.append $value
   
     if typeof input_settings.tooltip != "undefined"
       $label.popover

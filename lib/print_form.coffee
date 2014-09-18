@@ -1,5 +1,15 @@
 
-module.exports = (schema, values, class_name, number_of_items=10, order=[], field_list=[], field_list_is_whitelist=false) ->
+module.exports = (opts) ->
+  schema = opts.schema
+  values = opts.values
+  class_name = opts.class_name
+  number_of_items = opts.number_of_items ? 10
+  order = opts.order ? []
+  field_list = opts.field_list ? []
+  field_list_is_whitelist = opts.field_list_is_whitelist ? false
+  hidden_fields = opts.hidden_fields ? []
+
+
   $main = $('<div/>').addClass class_name+'_form'
 
   tmp = []

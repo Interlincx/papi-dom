@@ -51,8 +51,8 @@ PapiDom::adpagePieceParams = (params) ->
 
 
 PapiDom::formification = require './formify.coffee'
-PapiDom::formify = (attrs, input, value, class_name) ->
-  return @formification.init(attrs, input, value, class_name)
+PapiDom::formify = (attrs, input, value, class_name, edit) ->
+  return @formification.init(attrs, input, value, class_name, edit)
 
 PapiDom::printForm = require './print_form.coffee'
 

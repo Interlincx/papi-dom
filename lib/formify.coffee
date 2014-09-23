@@ -1,7 +1,7 @@
 
 module.exports =
   #console.log 'render form starts', input_settings
-  init: (attr_settings, input_settings, value, class_name='') ->
+  init: (attr_settings, input_settings, value, class_name='', edit=true) ->
     if typeof input_settings == 'undefined' || typeof input_settings.type == 'undefined'
       return false
 
@@ -27,31 +27,51 @@ module.exports =
         i++
     else
     ###
-    $input = @convertField(attr_settings, input_settings)
+    $input = @convertField(attr_settings, input_settings, edit)
     return $input
 
-  convertField: (attr_settings, input_settings) ->
+  convertField: (attr_settings, input_settings, edit) ->
     $label = $('<label/>')
     $label.html input_settings.title
-  
-    next_to = false
-    if input_settings.client_visible == false
-      $input = @buildHidden(input_settings)
-      return $input
-    else if input_settings.type == 'time' or input_settings.type == 'date' or input_settings.type == 'datetime'
-      $input = @buildPicker(input_settings)
-    else if input_settings.type == 'text'
-      $input = @buildTextarea(input_settings)
-    else if input_settings.data_type is 'bitflag' || input_settings.type is 'boolean'
-      $label.addClass 'checkbox'
-      $input = @buildCheckbox(input_settings)
-      next_to = true
-    else if typeof input_settings.options != 'undefined'
-      $input = @buildSelect(input_settings)
-    else
-      $input = @buildText(input_settings)
 
-    if input_settings.client_editable is false
+    if typeof input_settings.tooltip != "undefined"
+      tt = document.createElement('div')
+      tt.className = 'icon-question-sign'
+      $label.append tt
+
+      $label.popover
+        html: true
+        trigger: 'hover'
+        placement: 'bottom'
+        content: ->
+          input_settings.tooltip
+  
+    if edit
+      next_to = false
+      if input_settings.client_visible == false
+        $input = @buildHidden(input_settings)
+        return $input
+      else if input_settings.type == 'time' or input_settings.type == 'date' or input_settings.type == 'datetime'
+        $input = @buildPicker(input_settings)
+      else if input_settings.type == 'text'
+        $input = @buildTextarea(input_settings)
+      else if input_settings.data_type is 'bitflag' || input_settings.type is 'boolean'
+        $label.addClass 'checkbox'
+        $input = @buildCheckbox(input_settings)
+        next_to = true
+      else if typeof input_settings.options != 'undefined'
+        $input = @buildSelect(input_settings)
+      else
+        $input = @buildText(input_settings)
+    
+      for handle, value of attr_settings
+        $input.attr(handle.replace(/_/g, '-'), value)
+  
+      $input.attr('value', @value)
+
+    console.log "EDIT", edit
+
+    if edit is false or input_settings.client_editable is false
       if typeof input_settings.options != 'undefined'
         @value = input_settings.options[@value]
       $field = @buildHidden(input_settings)
@@ -60,23 +80,11 @@ module.exports =
       $input = $("<span/>")
       $input.append $field
       $input.append $value
-  
-    if typeof input_settings.tooltip != "undefined"
-      $label.popover
-        html: true
-        trigger: 'hover'
-        placement: 'bottom'
-        content: ->
-          input_settings.tooltip
-  
-    $input.addClass @class_name
-  
-    for handle, value of attr_settings
-      $input.attr(handle.replace(/_/g, '-'), value)
-
-    $input.attr('value', @value)
+    
     $final_input = $("<div/>")
     $final_input.className = 'inputField'
+    $input.addClass @class_name
+
     if next_to
       $label.append $input
       $final_input.append $label

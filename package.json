@@ -1,6 +1,6 @@
 {
   "name": "papi-dom",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "module to handle dom usage related to papi",
   "main": "index.js",
   "scripts": {

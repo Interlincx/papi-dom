@@ -69,15 +69,16 @@ PapiDom::loadStart = ->
 
 PapiDom::loadEnd = (err) ->
   rainbow.hide()
-  message = 'There was an error with the API request. The following error message was sent:<br/>'
-  message += err.message
-  opts =
-    title: 'API Error!'
-    content: message
-    buttons: []
-    clickOutsideToClose: true
-    removeOnClose: true
-  @modal = sModal( opts )
+  if err?
+    message = 'There was an error with the API request. The following error message was sent:<br/>'
+    message += err.message
+    opts =
+      title: 'API Error!'
+      content: message
+      buttons: []
+      clickOutsideToClose: true
+      removeOnClose: true
+    @modal = sModal( opts )
 
 PapiDom::showModal = ($modal) ->
   $modal.modal 'show'

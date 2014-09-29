@@ -69,7 +69,6 @@ module.exports =
   
       $input.attr('value', @value)
 
-    console.log "EDIT", edit
 
     if edit is false or input_settings.client_editable is false
       if typeof input_settings.options != 'undefined'

@@ -2,6 +2,7 @@
 
 
 rainbow = require "rainbow-load"
+sModal = require 'simple-modal'
 
 
 module.exports = PapiDom = (opts={}) ->
@@ -66,8 +67,17 @@ PapiDom::loadStart = ->
     shadowColor  : 'rgba(0, 0, 0, 0)'
   rainbow.show()
 
-PapiDom::loadEnd = ->
+PapiDom::loadEnd = (err) ->
   rainbow.hide()
+  message = 'There was an error with the API request. The following error message was sent:<br/>'
+  message += err.message
+  opts =
+    title: 'API Error!'
+    content: message
+    buttons: []
+    clickOutsideToClose: true
+    removeOnClose: true
+  @modal = sModal( opts )
 
 PapiDom::showModal = ($modal) ->
   $modal.modal 'show'

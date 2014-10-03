@@ -11,12 +11,9 @@ module.exports =
 
     $modal = $("<div/>").attr("id", options.item_id_handle).addClass('modal').addClass(@modalClass)
     $header = $("<div/>").addClass("modal-header").html '<h3>'+options.title+'</h3>'
-    $typea = $("<input/>").addClass("modal_typeahead").attr("type", "search").attr("autocomplete", 'off').keydown ->
-      $('.itemRow').hide()
   
     $modalBody = $("<div/>").addClass("modal-body").html "loading ..."
     $modal.append $header
-    $header.append $typea
     $modal.append $modalBody
     $modal.modal "show"
   
@@ -27,9 +24,14 @@ module.exports =
     @cb = callback
     @params = params
 
-    {item_label,item_id_handle,selected_id,title, original_event} = @options
-  
     $('.'+@modalClass+' > .modal-body').empty()
+  
+    table = @createContents rows, @options
+
+    $('.'+@modalClass+' > .modal-body').html table
+
+  createContents: (rows, options) ->
+    {item_label,item_id_handle,selected_id,title, original_event} = options
   
     @c_items = []
     @c_titles = []
@@ -61,12 +63,20 @@ module.exports =
         $('.dropdown-menu').hide()
         $(itemid).show()
         return false
-  
-    console.log t_options
-    $('.modal_typeahead').typeahead(t_options).keyup ->
+
+    $holder = $("<div/>")
+
+    $typea = $("<input/>").addClass("modal_typeahead").attr("type", "search").attr("autocomplete", 'off').keydown ->
+      $('.itemRow').hide()
+    $typea.typeahead(t_options).keyup ->
       $('.dropdown-menu').hide()
   
-    $('.'+@modalClass+' > .modal-body').html $table
+
+    $('.modal-header').append $typea
+    $holder.append $table
+
+    return $holder
+  
   
 
   rowsToTable: (rows, table_settings) ->

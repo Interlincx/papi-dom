@@ -33,6 +33,8 @@ module.exports =
   convertField: (attr_settings, input_settings, edit) ->
     $label = $('<label/>')
     $label.html input_settings.title
+    if typeof input_settings.required != "undefined" and input_settings.required is true
+      $label.addClass 'required'
 
     if typeof input_settings.tooltip != "undefined"
       tt = document.createElement('div')

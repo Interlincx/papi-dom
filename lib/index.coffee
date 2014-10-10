@@ -72,6 +72,7 @@ PapiDom::loadEnd = (err) ->
   if err?
     message = 'There was an error with the API request. The following error message was sent:<br/>'
     message += err.message
+    message += err.error
     opts =
       title: 'API Error!'
       content: message

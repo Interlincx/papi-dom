@@ -59,6 +59,7 @@ module.exports =
       updater: (item) ->
         console.log _this.c_items[item]
       highlighter: (item) ->
+        console.log "ITEM", item
         itemid = '.'+_this.c_items[item][item_id_handle]
         $('.dropdown-menu').hide()
         $(itemid).show()

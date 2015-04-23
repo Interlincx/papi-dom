@@ -1,32 +1,11 @@
 
 module.exports =
-  #console.log 'render form starts', input_settings
   init: (attr_settings, input_settings, value, class_name='', edit=true) ->
     if typeof input_settings == 'undefined' || typeof input_settings.type == 'undefined'
       return false
 
     @value = value
     @class_name = class_name
-    ###
-    if input_settings.data_type is 'bitflag'
-      i = 0
-      if @value != '' && @value != null
-        values = @value.split("")
-      $input = $("<div/>")
-      tmp = {}
-      if input_settings.class_name
-        tmp.class_name = input_settings.class_name
-      tmp.type = 'boolean'
-      for option, title of input_settings.options
-        tmp.value = 0
-        if typeof values != 'undefined'
-          tmp.value = values[i]
-        tmp.title = title
-        attr_settings.data_position = i
-        $input.append @convertField(attr_settings, tmp)
-        i++
-    else
-    ###
     $input = @convertField(attr_settings, input_settings, edit)
     return $input
 
